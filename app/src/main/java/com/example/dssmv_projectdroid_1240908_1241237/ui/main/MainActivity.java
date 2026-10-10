@@ -1,8 +1,9 @@
-package com.example.dssmv_projectdroid_1240908_1241237;
+package com.example.dssmv_projectdroid_1240908_1241237.ui.main;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.dssmv_projectdroid_1240908_1241237.R;
 import com.example.dssmv_projectdroid_1240908_1241237.data.model.Desporto;
 import com.example.dssmv_projectdroid_1240908_1241237.network.ApiClient;
 import com.example.dssmv_projectdroid_1240908_1241237.network.GymApiService;

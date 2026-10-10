@@ -16,17 +16,21 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.DSSMV_ProjectDroid_1240908_1241237">
 
+        <!-- MAIN ACTIVITY (Menu Principal / Arranca ao abrir a app) -->
         <activity
-                android:name=".MainActivity"
+                android:name=".ui.main.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver
-                android:name=".receiver.NotificationReceiver"
-                android:exported="false" />
+
+        <!-- AS NOVAS ACTIVITIES (Ecrãs Secundários) -->
+        <activity android:name=".ui.agendamento.AgendamentoActivity" />
+        <activity android:name=".ui.desportos.DesportosActivity" />
+        <activity android:name=".ui.surpresa.SurpresaActivity" />
+        <activity android:name=".ui.perfil.PerfilActivity" />
 
     </application>
 

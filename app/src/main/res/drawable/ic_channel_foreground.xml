@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Cruz Vermelha -->
+    <path
+            android:fillColor="#E31837"
+            android:pathData="M 20 0 L 80 0 L 65 35 L 100 20 L 100 80 L 65 65 L 80 100 L 20 100 L 35 65 L 0 80 L 0 20 L 35 35 Z" />
+
+    <!-- Cruz Branca Interior -->
+    <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M 40 15 L 60 15 L 60 40 L 85 40 L 85 60 L 60 60 L 60 85 L 40 85 L 40 60 L 15 60 L 15 40 L 40 40 Z" />
+
+</vector>
