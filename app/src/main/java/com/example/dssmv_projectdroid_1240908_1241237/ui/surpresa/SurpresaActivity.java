@@ -60,6 +60,7 @@ public class SurpresaActivity extends AppCompatActivity {
             aceleracaoAtual = (float) Math.sqrt(x * x + y * y + z * z);
             float delta = aceleracaoAtual - aceleracaoAnterior;
 
+            //aumentar para mais de 12 para dar direito no tele
             if (delta > 12) {
                 long tempoAtual = System.currentTimeMillis();
 

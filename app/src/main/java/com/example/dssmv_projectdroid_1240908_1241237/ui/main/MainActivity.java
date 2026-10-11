@@ -2,6 +2,7 @@ package com.example.dssmv_projectdroid_1240908_1241237.ui.main;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.dssmv_projectdroid_1240908_1241237.R;
@@ -15,6 +16,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView tvStatusApi;
+    private Button btnTestarApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,21 @@ public class MainActivity extends AppCompatActivity {
 
         btnIrSurpresa.setOnClickListener(v -> {
             android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa.SurpresaActivity.class);
+            startActivity(intent);
+        });
+
+        tvStatusApi = findViewById(R.id.tvStatusApi);
+        btnTestarApi = findViewById(R.id.btnTestarApi);
+
+        btnTestarApi.setOnClickListener(v -> {
+            tvStatusApi.setText("A carregar dados da API...");
+            testarConexaoRestDB();
+        });
+
+        Button btnVerAulas = findViewById(R.id.btnVerAulas);
+
+        btnVerAulas.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.desportos.DesportosActivity.class);
             startActivity(intent);
         });
     }
@@ -41,9 +60,13 @@ public class MainActivity extends AppCompatActivity {
                     List<Desporto> lista = response.body();
                     Log.d("RESTDB_SUCESSO", "Recebidos " + lista.size() + " registos!");
                     Toast.makeText(MainActivity.this, "Conectado ao RestDB! Total: " + lista.size(), Toast.LENGTH_LONG).show();
+
+                    tvStatusApi.setText("Sucesso! BD tem " + lista.size() + " desportos.");
                 } else {
                     Log.e("RESTDB_ERRO", "Erro da API. Código HTTP: " + response.code());
                     Toast.makeText(MainActivity.this, "Erro da API: " + response.code(), Toast.LENGTH_SHORT).show();
+
+                    tvStatusApi.setText("Erro da API. Código: " + response.code());
                 }
             }
 
@@ -51,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<Desporto>> call, Throwable t) {
                 Log.e("RESTDB_FALHA", "Falha de rede: " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Falha de rede: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                tvStatusApi.setText("Falha de rede. Verifica o Logcat.");
             }
         });
     }
