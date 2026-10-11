@@ -12,7 +12,7 @@
             android:id="@+id/tvTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🏋️ Ginásio DSSMV"
+            android:text="ISEPGYM"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,5 +53,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnIrSurpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ir para Desafio Surpresa 🎲"
+        app:layout_constraintTop_toBottomOf="@id/tvStatusApi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

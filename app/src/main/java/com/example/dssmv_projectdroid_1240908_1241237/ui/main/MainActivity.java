@@ -1,6 +1,7 @@
 package com.example.dssmv_projectdroid_1240908_1241237.ui.main;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.dssmv_projectdroid_1240908_1241237.R;
@@ -20,6 +21,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         testarConexaoRestDB();
+
+        Button btnIrSurpresa = findViewById(R.id.btnIrSurpresa);
+
+        btnIrSurpresa.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa.SurpresaActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void testarConexaoRestDB() {
