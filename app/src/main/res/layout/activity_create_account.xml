@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="32dp">
+
+    <TextView
+            android:id="@+id/tvTitleRegisto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Criar Conta"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/etNomeRegisto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+            android:id="@+id/etNomeRegisto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="Nome Completo"
+            android:inputType="textPersonName"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/etEmailRegisto"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleRegisto" />
+
+    <EditText
+            android:id="@+id/etEmailRegisto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/etPasswordRegisto"
+            app:layout_constraintTop_toBottomOf="@+id/etNomeRegisto" />
+
+    <EditText
+            android:id="@+id/etPasswordRegisto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnRegistar"
+            app:layout_constraintTop_toBottomOf="@+id/etEmailRegisto" />
+
+    <Button
+            android:id="@+id/btnRegistar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:text="REGISTAR"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordRegisto" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

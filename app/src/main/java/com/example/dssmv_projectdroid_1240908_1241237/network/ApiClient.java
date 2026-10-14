@@ -18,9 +18,9 @@ public class ApiClient {
 
     public static GymApiService getApiService() {
         if (retrofit == null) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();//cria um interceptor para a rede
             logging.setLevel(HttpLoggingInterceptor.Level.BODY); //regista o pedidos da api
-            Interceptor apiKeyInterceptor = new Interceptor() { // Interceptor que injeta o cabeçalho 'x-apikey' obrigatório pelo RestDB
+            Interceptor apiKeyInterceptor = new Interceptor() { //este interceptor muda ativamente os meus pedidos http
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request originalRequest = chain.request();
