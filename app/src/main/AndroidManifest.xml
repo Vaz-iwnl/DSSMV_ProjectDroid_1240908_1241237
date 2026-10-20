@@ -18,14 +18,15 @@
 
         <!-- MAIN ACTIVITY (Menu Principal / Arranca ao abrir a app) -->
         <activity
-                android:name=".ui.auth.LoginActivity"
-                android:exported="true">
+            android:name=".ui.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.MainActivity" />
+
+        <activity android:name=".ui.auth.LoginActivity" />
         <activity android:name=".ui.auth.CreateAccountActivity" />
 
         <!-- AS NOVAS ACTIVITIES (Ecrãs Secundários) -->

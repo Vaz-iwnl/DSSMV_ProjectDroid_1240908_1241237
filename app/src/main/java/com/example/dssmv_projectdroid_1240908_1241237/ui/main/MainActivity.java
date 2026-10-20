@@ -1,4 +1,5 @@
 package com.example.dssmv_projectdroid_1240908_1241237.ui.main;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -9,6 +10,10 @@ import com.example.dssmv_projectdroid_1240908_1241237.R;
 import com.example.dssmv_projectdroid_1240908_1241237.data.model.Desporto;
 import com.example.dssmv_projectdroid_1240908_1241237.network.ApiClient;
 import com.example.dssmv_projectdroid_1240908_1241237.network.GymApiService;
+import com.example.dssmv_projectdroid_1240908_1241237.ui.desportos.DesportosActivity;
+import com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa.SurpresaActivity;
+import com.google.android.material.card.MaterialCardView;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,56 +31,46 @@ public class MainActivity extends AppCompatActivity {
 
         testarConexaoRestDB();
 
-        Button btnIrSurpresa = findViewById(R.id.btnIrSurpresa);
+        MaterialCardView cardShake = findViewById(R.id.cardShake);
+        MaterialCardView cardModalidades = findViewById(R.id.cardModalidades);
+        MaterialCardView cardCalendario = findViewById(R.id.cardCalendario);
 
-        btnIrSurpresa.setOnClickListener(v -> {
-            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa.SurpresaActivity.class);
+        cardShake.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SurpresaActivity.class);
             startActivity(intent);
         });
 
-        tvStatusApi = findViewById(R.id.tvStatusApi);
-        btnTestarApi = findViewById(R.id.btnTestarApi);
-
-        btnTestarApi.setOnClickListener(v -> {
-            tvStatusApi.setText("A carregar dados da API...");
-            testarConexaoRestDB();
-        });
-
-        Button btnVerAulas = findViewById(R.id.btnVerAulas);
-
-        btnVerAulas.setOnClickListener(v -> {
-            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.desportos.DesportosActivity.class);
+        cardModalidades.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, DesportosActivity.class);
             startActivity(intent);
         });
+
+        cardCalendario.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "A página de Calendário será implementada em breve!", Toast.LENGTH_SHORT).show();
+        });
+
     }
 
     private void testarConexaoRestDB() {
         GymApiService apiService = ApiClient.getApiService();
 
-        // Executa o pedido GET para ir buscar a lista de desportos/cards
         apiService.getDesportos().enqueue(new Callback<List<Desporto>>() {
             @Override
             public void onResponse(Call<List<Desporto>> call, Response<List<Desporto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Desporto> lista = response.body();
                     Log.d("RESTDB_SUCESSO", "Recebidos " + lista.size() + " registos!");
-                    Toast.makeText(MainActivity.this, "Conectado ao RestDB! Total: " + lista.size(), Toast.LENGTH_LONG).show();
-
-                    tvStatusApi.setText("Sucesso! BD tem " + lista.size() + " desportos.");
+                    Toast.makeText(MainActivity.this, "Conectado ao RestDB! Total: " + lista.size(), Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("RESTDB_ERRO", "Erro da API. Código HTTP: " + response.code());
                     Toast.makeText(MainActivity.this, "Erro da API: " + response.code(), Toast.LENGTH_SHORT).show();
-
-                    tvStatusApi.setText("Erro da API. Código: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Desporto>> call, Throwable t) {
                 Log.e("RESTDB_FALHA", "Falha de rede: " + t.getMessage());
-                Toast.makeText(MainActivity.this, "Falha de rede: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-
-                tvStatusApi.setText("Falha de rede. Verifica o Logcat.");
+                Toast.makeText(MainActivity.this, "Falha de rede. Verifica o Logcat.", Toast.LENGTH_SHORT).show();
             }
         });
     }
