@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         cardCalendario.setOnClickListener(v -> {
-            Toast.makeText(MainActivity.this, "A página de Calendário será implementada em breve!", Toast.LENGTH_SHORT).show();
+            android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.AgendamentoActivity.class);
+            startActivity(intent);
         });
 
     }
