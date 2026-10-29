@@ -16,6 +16,7 @@ import com.example.dssmv_projectdroid_1240908_1241237.data.model.Aula;
 import com.example.dssmv_projectdroid_1240908_1241237.network.ApiClient;
 import com.example.dssmv_projectdroid_1240908_1241237.network.GymApiService;
 import com.example.dssmv_projectdroid_1240908_1241237.ui.main.MainActivity;
+import com.example.dssmv_projectdroid_1240908_1241237.data.model.Inscricao;
 
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class AgendamentoActivity extends AppCompatActivity {
         rvAulasDia = findViewById(R.id.rvAulasDia);
 
         rvAulasDia.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AulasAdapter();
+        adapter = new AulasAdapter(aulaClicada -> {
+            fazerInscricao(aulaClicada.getId());
+        });
         rvAulasDia.setAdapter(adapter);
 
         ImageView icHome = findViewById(R.id.icHome);
@@ -90,6 +93,28 @@ public class AgendamentoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Aula>> call, Throwable t) {
                 Toast.makeText(AgendamentoActivity.this, "Falha de rede: Verifica a net.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fazerInscricao(String idAula) {
+        GymApiService apiService = ApiClient.getApiService();
+
+        Inscricao novaInscricao = new Inscricao(idAula, "Joao Cunha");
+
+        apiService.inscreverAula(novaInscricao).enqueue(new Callback<Inscricao>() {
+            @Override
+            public void onResponse(Call<Inscricao> call, Response<Inscricao> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(AgendamentoActivity.this, "Inscrição confirmada!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AgendamentoActivity.this, "Erro: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Inscricao> call, Throwable t) {
+                Toast.makeText(AgendamentoActivity.this, "Falha de rede. Tenta de novo.", Toast.LENGTH_SHORT).show();
             }
         });
     }

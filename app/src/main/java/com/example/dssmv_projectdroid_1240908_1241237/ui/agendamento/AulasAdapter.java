@@ -16,6 +16,15 @@ import java.util.List;
 public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHolder> {
 
     private List<Aula> listaAulas = new ArrayList<>();
+    private OnAulaClickListener listener;
+
+    public interface OnAulaClickListener {
+        void onInscreverClick(Aula aula);
+    }
+
+    public AulasAdapter(OnAulaClickListener listener) {
+        this.listener = listener;
+    }
 
     public void setAulas(List<Aula> aulas) {
         this.listaAulas = aulas;
@@ -37,6 +46,12 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
         holder.tvProfessor.setText(aulaAtual.getProfessor());
         holder.tvHora.setText(aulaAtual.getHora());
         holder.tvDuracao.setText(" • " + aulaAtual.getDuracao());
+
+        holder.btnInscrever.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onInscreverClick(aulaAtual);
+            }
+        });
     }
 
     @Override
@@ -46,6 +61,7 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
 
     static class AulaViewHolder extends RecyclerView.ViewHolder {
         TextView tvModalidade, tvProfessor, tvHora, tvDuracao;
+        android.widget.Button btnInscrever;
 
         public AulaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +69,8 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
             tvProfessor = itemView.findViewById(R.id.tvAulaProfessor);
             tvHora = itemView.findViewById(R.id.tvAulaHora);
             tvDuracao = itemView.findViewById(R.id.tvAulaDuracao);
+
+            btnInscrever = itemView.findViewById(R.id.btnInscrever);
         }
     }
 }

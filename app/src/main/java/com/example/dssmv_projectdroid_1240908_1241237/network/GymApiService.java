@@ -3,6 +3,7 @@ package com.example.dssmv_projectdroid_1240908_1241237.network;
 import com.example.dssmv_projectdroid_1240908_1241237.data.model.Desporto;
 import com.example.dssmv_projectdroid_1240908_1241237.data.model.Utilizador;
 import com.example.dssmv_projectdroid_1240908_1241237.data.model.Aula;
+import com.example.dssmv_projectdroid_1240908_1241237.data.model.Inscricao;
 
 import java.util.List;
 import retrofit2.Call;
@@ -54,4 +55,7 @@ public interface GymApiService {
 
     @GET("aulas")
     Call<List<Aula>> getAulasPorData(@Query("q") String queryRestDb);
+
+    @POST("inscricoes")
+    Call<Inscricao> inscreverAula(@Body Inscricao novaInscricao);
 }

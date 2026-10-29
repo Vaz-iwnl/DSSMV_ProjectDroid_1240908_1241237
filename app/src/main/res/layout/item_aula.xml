@@ -59,5 +59,13 @@
                 android:textColor="#5E636E"
                 android:layout_marginStart="4dp" />
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnInscrever"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Inscrever"
+            app:cornerRadius="8dp" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
