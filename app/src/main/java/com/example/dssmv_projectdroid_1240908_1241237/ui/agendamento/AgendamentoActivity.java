@@ -29,6 +29,7 @@ public class AgendamentoActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private RecyclerView rvAulasDia;
     private AulasAdapter adapter;
+    private java.util.Calendar dataSelecionada = java.util.Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class AgendamentoActivity extends AppCompatActivity {
 
         rvAulasDia.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AulasAdapter(aulaClicada -> {
-            fazerInscricao(aulaClicada.getId());
+            fazerInscricao(aulaClicada);
         });
         rvAulasDia.setAdapter(adapter);
 
@@ -59,6 +60,7 @@ public class AgendamentoActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 java.util.Calendar cal = java.util.Calendar.getInstance();
                 cal.set(year, month, dayOfMonth);
+                dataSelecionada.set(year, month, dayOfMonth);
 
                 int diaDaSemanaNumero = cal.get(java.util.Calendar.DAY_OF_WEEK);
 
@@ -97,25 +99,64 @@ public class AgendamentoActivity extends AppCompatActivity {
         });
     }
 
-    private void fazerInscricao(String idAula) {
-        GymApiService apiService = ApiClient.getApiService();
+    private void fazerInscricao(Aula aula) {
+        try {
+            if (aula.getHora() != null && aula.getHora().contains(":")) {
+                String[] partesHora = aula.getHora().trim().split(":");
+                java.util.Calendar dataHoraAula = (java.util.Calendar) dataSelecionada.clone();
 
-        Inscricao novaInscricao = new Inscricao(idAula, "Joao Cunha");
+                dataHoraAula.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(partesHora[0].trim()));
+                dataHoraAula.set(java.util.Calendar.MINUTE, Integer.parseInt(partesHora[1].trim()));
 
-        apiService.inscreverAula(novaInscricao).enqueue(new Callback<Inscricao>() {
-            @Override
-            public void onResponse(Call<Inscricao> call, Response<Inscricao> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(AgendamentoActivity.this, "Inscrição confirmada!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AgendamentoActivity.this, "Erro: " + response.code(), Toast.LENGTH_SHORT).show();
+                if (dataHoraAula.before(java.util.Calendar.getInstance())) {
+                    Toast.makeText(this, "Esta aula já passou!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
 
-            @Override
-            public void onFailure(Call<Inscricao> call, Throwable t) {
-                Toast.makeText(AgendamentoActivity.this, "Falha de rede. Tenta de novo.", Toast.LENGTH_SHORT).show();
-            }
-        });
+            String idAula = aula.getId();
+            GymApiService apiService = ApiClient.getApiService();
+
+            android.content.SharedPreferences prefs = getSharedPreferences("SessaoGinasio", MODE_PRIVATE);
+            String usernameLogado = prefs.getString("USERNAME_ALUNO", "Aluno Desconhecido");
+
+            String queryVerificacao = "{\"id_aula\":\"" + idAula + "\", \"username_aluno\":\"" + usernameLogado + "\"}";
+
+            apiService.verificarInscricao(queryVerificacao).enqueue(new Callback<List<Inscricao>>() {
+                @Override
+                public void onResponse(Call<List<Inscricao>> call, Response<List<Inscricao>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+
+                        if (response.body().isEmpty()) {
+                            Inscricao novaInscricao = new Inscricao(idAula, usernameLogado);
+
+                            apiService.inscreverAula(novaInscricao).enqueue(new Callback<Inscricao>() {
+                                @Override
+                                public void onResponse(Call<Inscricao> call, Response<Inscricao> responsePost) {
+                                    if (responsePost.isSuccessful()) {
+                                        Toast.makeText(AgendamentoActivity.this, "Inscrição confirmada!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Inscricao> call, Throwable t) {
+                                    Toast.makeText(AgendamentoActivity.this, "Falha a inscrever.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        } else {
+                            Toast.makeText(AgendamentoActivity.this, "Já estás inscrito nesta aula!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Inscricao>> call, Throwable t) {
+                    Toast.makeText(AgendamentoActivity.this, "Falha de rede. Tenta de novo.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

@@ -58,4 +58,7 @@ public interface GymApiService {
 
     @POST("inscricoes")
     Call<Inscricao> inscreverAula(@Body Inscricao novaInscricao);
+
+    @GET("inscricoes")
+    Call<List<Inscricao>> verificarInscricao(@Query("q") String queryRestDb);
 }

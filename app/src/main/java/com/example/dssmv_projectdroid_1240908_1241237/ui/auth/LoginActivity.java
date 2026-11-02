@@ -64,7 +64,12 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Email ou password incorretos!", Toast.LENGTH_SHORT).show();
                     } else {
                         // Encontrou o utilizador!
-                        Toast.makeText(LoginActivity.this, "Bem-vindo, " + utilizadores.get(0).getNome() + "!", Toast.LENGTH_SHORT).show();
+                        String nomeDoAluno = utilizadores.get(0).getNome();
+
+                        android.content.SharedPreferences prefs = getSharedPreferences("SessaoGinasio", MODE_PRIVATE);
+                        prefs.edit().putString("USERNAME_ALUNO", nomeDoAluno).apply();
+
+                        Toast.makeText(LoginActivity.this, "Bem-vindo, " + nomeDoAluno + "!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
