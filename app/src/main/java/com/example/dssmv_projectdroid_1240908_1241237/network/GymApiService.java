@@ -61,4 +61,7 @@ public interface GymApiService {
 
     @GET("inscricoes")
     Call<List<Inscricao>> verificarInscricao(@Query("q") String queryRestDb);
+
+    @DELETE("inscricoes/{id}")
+    Call<Void> apagarInscricao(@Path("id") String id);
 }

@@ -1,81 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="32dp">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:padding="32dp">
 
-    <!-- Ícone ou Logo (Opcional, usando a cruz de cristo se quiseres depois) -->
     <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_cruz_cristo"
-            app:layout_constraintBottom_toTopOf="@+id/tvWelcome"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_cruz_cristo"
+        app:layout_constraintBottom_toTopOf="@+id/tvWelcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-            android:id="@+id/tvWelcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="ISEPGYM"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/etEmail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ISEPGYM"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
 
     <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/etPassword"
-            app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_caixa_texto_login"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/text_hint"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
 
     <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-            app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_caixa_texto_login"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/text_hint"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
     <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="24dp"
-            android:text="ENTRAR"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#D32F2F"
-            app:layout_constraintBottom_toTopOf="@+id/tvCreateAccount"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_botao_vermelho"
+        app:backgroundTint="@null"
+        android:text="ENTRAR"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreateAccount"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <TextView
-            android:id="@+id/tvCreateAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Não tem conta? Criar Conta"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
+        android:id="@+id/tvCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Não tem conta? Criar Conta"
+        android:textColor="@color/red_primary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>
