@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
             android.content.Intent intent = new android.content.Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.AgendamentoActivity.class);
             startActivity(intent);
         });
+
+        ImageView icMinhasAulas = findViewById(R.id.icMinhasAulas);
+        if (icMinhasAulas != null) {
+            icMinhasAulas.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
 
     }
 

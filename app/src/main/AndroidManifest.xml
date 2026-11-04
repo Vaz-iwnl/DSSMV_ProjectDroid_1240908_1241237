@@ -36,6 +36,7 @@
         <activity android:name=".ui.desportos.DesportosActivity" />
         <activity android:name=".ui.surpresa.SurpresaActivity" />
         <activity android:name=".ui.perfil.PerfilActivity" />
+        <activity android:name=".ui.agendamento.MinhasAulasActivity" />
 
 
     </application>
