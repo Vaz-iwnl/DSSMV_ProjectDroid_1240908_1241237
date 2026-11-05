@@ -7,13 +7,7 @@ import com.example.dssmv_projectdroid_1240908_1241237.data.model.Inscricao;
 
 import java.util.List;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 public interface GymApiService {
 
@@ -47,6 +41,7 @@ public interface GymApiService {
     @POST("users")
     Call<Utilizador> criarUtilizador(@Body Utilizador utilizador);
 
+
     @PUT("users/{id}")
     Call<Utilizador> atualizarUtilizador(@Path("id") String id, @Body Utilizador utilizador);
 
@@ -64,4 +59,5 @@ public interface GymApiService {
 
     @DELETE("inscricoes/{id}")
     Call<Void> apagarInscricao(@Path("id") String id);
+
 }

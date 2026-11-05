@@ -8,7 +8,8 @@ public class Utilizador {
     private String nome;
     private String email;
     private String password;
-    private boolean professor; // Define se é professor (true) ou aluno (false)
+    private boolean professor;
+    private boolean active = true;
 
     // Construtor vazio (obrigatório para o Retrofit conseguir ler a resposta da API)
     public Utilizador() {
@@ -54,7 +55,6 @@ public class Utilizador {
     public void setPassword(String password) {
         this.password = password;
     }
-
     public boolean isProfessor() {
         return professor;
     }
@@ -62,7 +62,6 @@ public class Utilizador {
     public void setProfessor(boolean professor) {
         this.professor = professor;
     }
-    private boolean active = true;
 
     public boolean isActive() {
         return active;

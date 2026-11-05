@@ -59,16 +59,20 @@ public class LoginActivity extends AppCompatActivity {
                     List<Utilizador> utilizadores = response.body();
 
                     if (utilizadores.isEmpty()) {
-                        // Se a lista vem vazia, não encontrou ninguém com aquele email e pass
                         Toast.makeText(LoginActivity.this, "Email ou password incorretos!", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Encontrou o utilizador!
-                        String nomeDoAluno = utilizadores.get(0).getNome();
+                        Utilizador utilizadorLogado = utilizadores.get(0);
 
-                        android.content.SharedPreferences prefs = getSharedPreferences("SessaoGinasio", MODE_PRIVATE);
-                        prefs.edit().putString("USERNAME_ALUNO", nomeDoAluno).apply();
+                        // Gravação da sessão sem a foto
+                        android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                        android.content.SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("is_logged_in", true);
+                        editor.putString("user_id", utilizadorLogado.getId());
+                        editor.putString("user_nome", utilizadorLogado.getNome());
+                        editor.putString("user_email", utilizadorLogado.getEmail());
+                        editor.apply();
 
-                        Toast.makeText(LoginActivity.this, "Bem-vindo, " + nomeDoAluno + "!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Bem-vindo, " + utilizadorLogado.getNome() + "!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
