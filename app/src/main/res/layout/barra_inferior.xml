@@ -25,5 +25,13 @@
         android:layout_weight="1"
         android:src="@android:drawable/ic_menu_my_calendar"
         app:tint="@color/text_hint" />
+    <ImageButton
+            android:id="@+id/btnNavPerfil"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Perfil"
+            android:src="@drawable/ic_perfil" />
 
 </LinearLayout>

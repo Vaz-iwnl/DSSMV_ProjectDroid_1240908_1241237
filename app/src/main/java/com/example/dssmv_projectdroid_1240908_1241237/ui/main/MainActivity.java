@@ -1,8 +1,10 @@
 package com.example.dssmv_projectdroid_1240908_1241237.ui.main;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton; // Import necessário caso uses ImageButton
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +14,7 @@ import com.example.dssmv_projectdroid_1240908_1241237.data.model.Desporto;
 import com.example.dssmv_projectdroid_1240908_1241237.network.ApiClient;
 import com.example.dssmv_projectdroid_1240908_1241237.network.GymApiService;
 import com.example.dssmv_projectdroid_1240908_1241237.ui.desportos.DesportosActivity;
+import com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity; // Import da PerfilActivity
 import com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa.SurpresaActivity;
 import com.google.android.material.card.MaterialCardView;
 
@@ -60,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        ImageButton btnNavPerfil = findViewById(R.id.btnNavPerfil);
+        if (btnNavPerfil != null) {
+            btnNavPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
+                startActivity(intent);
+            });
+        }
     }
 
     private void testarConexaoRestDB() {
