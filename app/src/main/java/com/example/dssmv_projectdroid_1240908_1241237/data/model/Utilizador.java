@@ -8,16 +8,18 @@ public class Utilizador {
     private String nome;
     private String email;
     private String password;
+    private boolean professor; // Define se é professor (true) ou aluno (false)
 
     // Construtor vazio (obrigatório para o Retrofit conseguir ler a resposta da API)
     public Utilizador() {
     }
 
     // Construtor para criar novos utilizadores na app e enviar para o RestDB
-    public Utilizador(String nome, String email, String password) {
+    public Utilizador(String nome, String email, String password, boolean professor) {
         this.nome = nome;
         this.email = email;
         this.password = password;
+        this.professor = professor;
     }
 
     // Getters e Setters
@@ -51,5 +53,22 @@ public class Utilizador {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(boolean professor) {
+        this.professor = professor;
+    }
+    private boolean active = true;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

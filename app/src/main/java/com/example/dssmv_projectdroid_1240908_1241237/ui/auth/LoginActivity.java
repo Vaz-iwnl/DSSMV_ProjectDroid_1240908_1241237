@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void fazerLogin(String email, String password) {
-        // Formato obrigatório da query do RestDB: {"email":"teste@teste.com","password":"123"}
         String query = "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}";
 
         ApiClient.getApiService().fazerLogin(query).enqueue(new Callback<List<Utilizador>>() {
