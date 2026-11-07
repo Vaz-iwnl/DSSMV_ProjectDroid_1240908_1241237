@@ -62,4 +62,6 @@ public interface GymApiService {
 
     @PUT("aulas/{id}")
     Call<Aula> atualizarAula(@Path("id") String id, @Body Aula aula);
+    @DELETE("aulas/{id}")
+    Call<Void> apagarAula(@Path("id") String id);
 }

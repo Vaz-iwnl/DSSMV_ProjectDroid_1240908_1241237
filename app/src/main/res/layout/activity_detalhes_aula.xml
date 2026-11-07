@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="#E6E7EB"
+              android:padding="24dp">
+
+    <TextView
+            android:id="@+id/tvTituloAula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detalhes da Aula"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alunos Inscritos:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#555555"
+            android:layout_marginBottom="8dp" />
+
+    <!-- Usamos uma ListView simples para não precisares de criar outro Adapter -->
+    <ListView
+            android:id="@+id/listViewAlunos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"
+            android:elevation="2dp"
+            android:padding="8dp"
+            android:layout_marginBottom="24dp"/>
+
+    <Button
+            android:id="@+id/btnCancelarAula"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="CANCELAR AULA"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#D32F2F" />
+
+</LinearLayout>

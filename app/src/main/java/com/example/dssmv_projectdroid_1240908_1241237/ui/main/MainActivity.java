@@ -57,7 +57,21 @@ public class MainActivity extends AppCompatActivity {
         ImageView icMinhasAulas = findViewById(R.id.icMinhasAulas);
         if (icMinhasAulas != null) {
             icMinhasAulas.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
+                // Ir buscar a sessão para saber se é professor
+                android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+
+                // NOTA: Confirma se no teu LoginActivity guardaste a chave do professor como "is_professor"
+                boolean isProfessor = prefs.getBoolean("is_professor", false);
+
+                Intent intent;
+                if (isProfessor) {
+                    // Vai para a gestão de aulas do Instrutor
+                    intent = new Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MenuInstrutorActivity.class);
+                } else {
+                    // Vai para as aulas do Aluno
+                    intent = new Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
+                }
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             });

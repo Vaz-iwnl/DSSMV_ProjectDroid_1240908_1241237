@@ -17,6 +17,7 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
 
     private List<Aula> listaAulas = new ArrayList<>();
     private OnAulaClickListener listener;
+    private boolean isModoInstrutor = false;
 
     public interface OnAulaClickListener {
         void onInscreverClick(Aula aula);
@@ -24,6 +25,10 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
 
     public AulasAdapter(OnAulaClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setModoInstrutor(boolean modoInstrutor) {
+        this.isModoInstrutor = modoInstrutor;
     }
 
     public void setAulas(List<Aula> aulas) {
@@ -45,22 +50,41 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
         holder.tvModalidade.setText(aulaAtual.getModalidade());
         holder.tvProfessor.setText(aulaAtual.getProfessor());
 
+        // Vai buscar o dia da semana (ex: "Sexta") e a hora (ex: "19:30")
+        String diaSemana = aulaAtual.getDiaSemana();
         String horaFormatada = aulaAtual.getHora();
+        String horaMinuto = "";
+
+        // Trata da formatação da hora (remove a data de 1970 se vier no formato 'T')
         if (horaFormatada != null && horaFormatada.contains("T")) {
             try {
                 java.text.SimpleDateFormat formatoOriginal = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.getDefault());
                 formatoOriginal.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
-                java.util.Date data = formatoOriginal.parse(horaFormatada);
+                java.util.Date horaDaAula = formatoOriginal.parse(horaFormatada);
 
                 java.text.SimpleDateFormat formatoHora = new java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
-                horaFormatada = formatoHora.format(data);
+                horaMinuto = formatoHora.format(horaDaAula);
             } catch (Exception e) {
-                e.printStackTrace();
+                horaMinuto = horaFormatada;
             }
+        } else if (horaFormatada != null) {
+            horaMinuto = horaFormatada;
         }
 
-        holder.tvHora.setText(horaFormatada);
+        // Se o dia não vier vazio, junta com a hora. Ex: "Sexta • 19:30"
+        String textoDiaHora = (diaSemana != null && !diaSemana.isEmpty() ? diaSemana + " • " : "") + horaMinuto;
+        holder.tvHora.setText(textoDiaHora);
+
         holder.tvDuracao.setText(" • " + aulaAtual.getDuracao());
+
+        // Modo Instrutor = Botão DETALHES Cinzento
+        if (isModoInstrutor) {
+            holder.btnInscrever.setText("DETALHES");
+            holder.btnInscrever.setBackgroundColor(android.graphics.Color.parseColor("#5E636E"));
+        } else {
+            holder.btnInscrever.setText("INSCREVER");
+            holder.btnInscrever.setBackgroundColor(android.graphics.Color.parseColor("#D32F2F"));
+        }
 
         holder.btnInscrever.setOnClickListener(v -> {
             if (listener != null) {
@@ -84,7 +108,6 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
             tvProfessor = itemView.findViewById(R.id.tvAulaProfessor);
             tvHora = itemView.findViewById(R.id.tvAulaHora);
             tvDuracao = itemView.findViewById(R.id.tvAulaDuracao);
-
             btnInscrever = itemView.findViewById(R.id.btnInscrever);
         }
     }

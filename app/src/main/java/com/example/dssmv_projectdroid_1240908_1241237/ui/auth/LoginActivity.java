@@ -62,14 +62,13 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Email ou password incorretos!", Toast.LENGTH_SHORT).show();
                     } else {
                         Utilizador utilizadorLogado = utilizadores.get(0);
-
-                        // Gravação da sessão sem a foto
                         android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
                         android.content.SharedPreferences.Editor editor = prefs.edit();
                         editor.putBoolean("is_logged_in", true);
                         editor.putString("user_id", utilizadorLogado.getId());
                         editor.putString("user_nome", utilizadorLogado.getNome());
                         editor.putString("user_email", utilizadorLogado.getEmail());
+                        editor.putBoolean("is_professor", utilizadorLogado.isProfessor());
                         editor.apply();
 
                         Toast.makeText(LoginActivity.this, "Bem-vindo, " + utilizadorLogado.getNome() + "!", Toast.LENGTH_SHORT).show();
