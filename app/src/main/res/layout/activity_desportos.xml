@@ -4,8 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="24dp">
+        android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvTituloLista"
@@ -27,7 +26,7 @@
         android:paddingBottom="16dp"
         android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/tvTituloLista"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/barraInclude"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_desporto" />
@@ -42,6 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <include
+        android:id="@+id/barraInclude"
         layout="@layout/barra_inferior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -44,7 +44,22 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
 
         holder.tvModalidade.setText(aulaAtual.getModalidade());
         holder.tvProfessor.setText(aulaAtual.getProfessor());
-        holder.tvHora.setText(aulaAtual.getHora());
+
+        String horaFormatada = aulaAtual.getHora();
+        if (horaFormatada != null && horaFormatada.contains("T")) {
+            try {
+                java.text.SimpleDateFormat formatoOriginal = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.getDefault());
+                formatoOriginal.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+                java.util.Date data = formatoOriginal.parse(horaFormatada);
+
+                java.text.SimpleDateFormat formatoHora = new java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
+                horaFormatada = formatoHora.format(data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        holder.tvHora.setText(horaFormatada);
         holder.tvDuracao.setText(" • " + aulaAtual.getDuracao());
 
         holder.btnInscrever.setOnClickListener(v -> {

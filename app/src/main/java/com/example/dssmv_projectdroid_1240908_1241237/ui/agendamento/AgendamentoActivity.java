@@ -177,7 +177,7 @@ public class AgendamentoActivity extends AppCompatActivity {
                     if (jaInscrito) {
                         Toast.makeText(AgendamentoActivity.this, "Já estás inscrito nesta aula!", Toast.LENGTH_SHORT).show();
                     } else {
-                        Inscricao novaInscricao = new Inscricao(idAula, usernameLogado, dataFormatada);
+                        Inscricao novaInscricao = new Inscricao(idAula, usernameLogado, dataFormatada, aula.getModalidade());
 
                         apiService.inscreverAula(novaInscricao).enqueue(new Callback<Inscricao>() {
                             @Override

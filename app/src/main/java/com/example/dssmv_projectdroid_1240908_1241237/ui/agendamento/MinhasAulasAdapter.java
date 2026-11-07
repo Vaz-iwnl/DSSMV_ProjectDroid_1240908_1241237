@@ -42,7 +42,7 @@ public class MinhasAulasAdapter extends RecyclerView.Adapter<MinhasAulasAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Inscricao inscricao = lista.get(position);
 
-        holder.tvModalidade.setText("aula ID: " + inscricao.getId_aula());
+        holder.tvModalidade.setText(inscricao.getModalidade());
         holder.tvProfessor.setText("Data: " + inscricao.getData_aula());
         holder.tvHora.setText("");
         holder.tvDuracao.setText("");

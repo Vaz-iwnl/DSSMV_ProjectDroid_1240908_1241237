@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        ImageButton btnNavPerfil = findViewById(R.id.btnNavPerfil);
+        ImageView btnNavPerfil = findViewById(R.id.btnNavPerfil);
         if (btnNavPerfil != null) {
             btnNavPerfil.setOnClickListener(v -> {
                 Intent intent = new Intent(MainActivity.this, PerfilActivity.class);

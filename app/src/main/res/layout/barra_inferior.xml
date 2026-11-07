@@ -5,7 +5,7 @@
     android:id="@+id/barraNavegacao"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="#FFFFFF"
+    android:background="@color/bg_dark"
     android:elevation="8dp"
     android:gravity="center_vertical"
     android:paddingHorizontal="32dp"
@@ -13,25 +13,30 @@
 
     <ImageView
         android:id="@+id/icHome"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_weight="1"
         android:src="@drawable/ic_home"
-        app:tint="#D32F2F" />
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:tint="@color/text_hint" />
 
     <ImageView
         android:id="@+id/icMinhasAulas"
         android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:src="@android:drawable/ic_menu_my_calendar"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:tint="@color/text_hint" />
-    <ImageButton
+
+    <ImageView
             android:id="@+id/btnNavPerfil"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Perfil"
-            android:src="@drawable/ic_perfil" />
+            android:src="@drawable/ic_perfil"
+            app:tint="@color/text_hint"/>
 
 </LinearLayout>
