@@ -59,11 +59,23 @@ public class AgendamentoActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 java.util.Calendar cal = java.util.Calendar.getInstance();
-                cal.set(year, month, dayOfMonth);
+                cal.set(year, month, dayOfMonth, 0, 0, 0);
+                cal.set(java.util.Calendar.MILLISECOND, 0);
+
+                java.util.Calendar calHoje = java.util.Calendar.getInstance();
+                calHoje.set(java.util.Calendar.HOUR_OF_DAY, 23);
+                calHoje.set(java.util.Calendar.MINUTE, 59);
+                calHoje.set(java.util.Calendar.SECOND, 59);
+                calHoje.set(java.util.Calendar.MILLISECOND, 999);
+
+                if (cal.getTimeInMillis() <= calHoje.getTimeInMillis()) {
+                    Toast.makeText(AgendamentoActivity.this, "Só podes agendar aulas a partir de amanhã!", Toast.LENGTH_SHORT).show();
+                    adapter.setAulas(new java.util.ArrayList<>());
+                    return;
+                }
+
                 dataSelecionada.set(year, month, dayOfMonth);
-
                 int diaDaSemanaNumero = cal.get(java.util.Calendar.DAY_OF_WEEK);
-
                 String[] diasEmTexto = {"Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"};
                 String diaSelecionado = diasEmTexto[diaDaSemanaNumero - 1];
 
@@ -147,8 +159,24 @@ public class AgendamentoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Inscricao>> call, Response<List<Inscricao>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    List<Inscricao> listaInscritos = response.body();
 
-                    if (response.body().isEmpty()) {
+                    if (listaInscritos.size() >= aula.getLotacao()) {
+                        Toast.makeText(AgendamentoActivity.this, "Esgotado! A lotação máxima é de " + aula.getLotacao() + " vagas.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    boolean jaInscrito = false;
+                    for (Inscricao insc : listaInscritos) {
+                        if (insc.getUsername_aluno().equals(usernameLogado)) {
+                            jaInscrito = true;
+                            break;
+                        }
+                    }
+
+                    if (jaInscrito) {
+                        Toast.makeText(AgendamentoActivity.this, "Já estás inscrito nesta aula!", Toast.LENGTH_SHORT).show();
+                    } else {
                         Inscricao novaInscricao = new Inscricao(idAula, usernameLogado, dataFormatada);
 
                         apiService.inscreverAula(novaInscricao).enqueue(new Callback<Inscricao>() {
@@ -164,9 +192,6 @@ public class AgendamentoActivity extends AppCompatActivity {
                                 Toast.makeText(AgendamentoActivity.this, "Falha a inscrever.", Toast.LENGTH_SHORT).show();
                             }
                         });
-
-                    } else {
-                        Toast.makeText(AgendamentoActivity.this, "Já estás inscrito nesta aula!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

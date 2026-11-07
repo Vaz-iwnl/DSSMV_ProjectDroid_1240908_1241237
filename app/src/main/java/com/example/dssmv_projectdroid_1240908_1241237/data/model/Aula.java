@@ -12,6 +12,7 @@ public class Aula {
     private String data;
     private String hora;
     private String duracao;
+    private int lotacao;
 
     public String getId() { return id; }
     public String getModalidade() { return modalidade; }
@@ -19,4 +20,8 @@ public class Aula {
     public String getData() { return data; }
     public String getHora() { return hora; }
     public String getDuracao() { return duracao; }
+    public int getLotacao() { return lotacao; }
+
+    public void setHora(String hora) { this.hora = hora; }
+    public void setLotacao(int lotacao) { this.lotacao = lotacao; }
 }
