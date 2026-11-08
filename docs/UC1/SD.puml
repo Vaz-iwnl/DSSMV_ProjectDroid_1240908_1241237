@@ -1,0 +1,15 @@
+@startuml
+title UC01 - Diagrama de Sequência
+actor "Utilizador" as U
+participant "CreateAccountActivity" as UI
+participant "GymApiService\n(Retrofit)" as API
+database "RestDB" as BD
+
+U -> UI : Clica em "Registar"
+UI -> UI : Valida campos vazios
+UI -> API : criarUtilizador(novoUtilizador)
+API -> BD : POST /users
+BD --> API : 201 Created (JSON)
+API --> UI : onResponse()
+UI --> U : Mostra Toast "Sucesso" e executa finish()
+@enduml

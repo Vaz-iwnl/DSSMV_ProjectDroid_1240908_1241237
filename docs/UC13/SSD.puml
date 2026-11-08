@@ -1,0 +1,9 @@
+@startuml
+title UC13 - Diagrama de Sequência de Sistema
+actor "Instrutor" as I
+participant "Sistema ISEPGYM" as S
+
+I -> S : 1. Insere novo limite de lotação e clica atualizar
+S --> I : 2. Valida os dados inseridos
+S --> I : 3. Confirma atualização da lotação da aula
+@enduml

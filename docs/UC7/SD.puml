@@ -1,0 +1,20 @@
+@startuml
+title UC07 - Diagrama de Sequência
+actor "Atleta" as A
+participant "AgendamentoActivity" as UI
+participant "GymApiService" as API
+database "RestDB" as BD
+
+A -> UI : Clica no botão "Inscrever"
+UI -> UI : Verifica se aula < data atual
+UI -> API : verificarInscricao(queryIdAula)
+API -> BD : GET /inscricoes?q={id_aula}
+BD --> API : 200 OK (Lista de Inscritos)
+API --> UI : onResponse()
+UI -> UI : Valida lotação máxima e se o Aluno já está na lista
+UI -> API : inscreverAula(novaInscricao)
+API -> BD : POST /inscricoes
+BD --> API : 201 Created
+API --> UI : onResponse()
+UI --> A : Mostra Toast "Inscrição confirmada!"
+@enduml

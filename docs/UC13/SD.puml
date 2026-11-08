@@ -1,0 +1,16 @@
+@startuml
+title UC13 - Diagrama de Sequência
+actor "Instrutor" as I
+participant "DetalhesAulaActivity" as UI
+participant "GymApiService" as API
+database "RestDB" as BD
+
+I -> UI : Insere novo número e clica "Guardar"
+UI -> UI : Valida formato e se número > 0
+UI -> UI : aulaBaseAtual.setLotacao(novaLotacao)
+UI -> API : atualizarAula(idAula, aulaBaseAtual)
+API -> BD : PUT /aulas/{id}
+BD --> API : 200 OK (Aula atualizada)
+API --> UI : onResponse()
+UI --> I : Mostra Toast "Lotação atualizada com sucesso..."
+@enduml

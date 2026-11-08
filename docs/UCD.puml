@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor LightBlue
+  BorderColor Black
+  ArrowColor Black
+}
+
+actor "Utilizador" as U
+actor "Atleta" as A
+actor "Instrutor" as I
+
+' Herança de Atores
+U <|-- A
+U <|-- I
+
+rectangle "ISEPGYM" {
+
+  ' Casos de Uso Partilhados
+  usecase "UC01: Criar Conta" as UC01
+  usecase "UC02: Iniciar Sessão" as UC02
+  usecase "UC03: Terminar Sessão" as UC03
+  usecase "UC04: Gerir Perfil" as UC04
+
+  ' Casos de Uso do Atleta
+  usecase "UC05: Consultar Modalidades" as UC05
+  usecase "UC06: Consultar Calendário" as UC06
+  usecase "UC07: Inscrever em Aula" as UC07
+  usecase "UC08: Consultar Minhas Aulas" as UC08
+  usecase "UC09: Cancelar Inscrição" as UC09
+  usecase "UC10: Sortear Exercício (Shake)" as UC10
+
+  ' Casos de Uso do Instrutor
+  usecase "UC11: Consultar Aulas Lecionadas" as UC11
+  usecase "UC12: Consultar Inscritos" as UC12
+  usecase "UC13: Alterar Lotação da Aula" as UC13
+  usecase "UC14: Cancelar a Aula" as UC14
+}
+
+' Associações do Utilizador Comum
+U --> UC01
+U --> UC02
+U --> UC03
+U --> UC04
+
+' Associações diretas do Atleta
+A --> UC05
+A --> UC06
+A --> UC07
+A --> UC08
+A --> UC09
+A --> UC10
+
+' Associações diretas do Instrutor
+I --> UC11
+I --> UC12
+I --> UC13
+I --> UC14
+
+@enduml

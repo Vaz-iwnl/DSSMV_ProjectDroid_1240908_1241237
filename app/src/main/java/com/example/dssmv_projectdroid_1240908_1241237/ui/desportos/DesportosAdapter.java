@@ -35,7 +35,6 @@ public class DesportosAdapter extends RecyclerView.Adapter<DesportosAdapter.Desp
 
         holder.tvNome.setText(desporto.getNome());
         holder.tvDescricao.setText(desporto.getDescricao());
-        holder.tvLotacao.setText("Lotação máxima: " + desporto.getLotacaoMaxima());
 
         Glide.with(holder.itemView.getContext())
                 .load(desporto.getImagemUrl())
@@ -50,14 +49,13 @@ public class DesportosAdapter extends RecyclerView.Adapter<DesportosAdapter.Desp
 
     public static class DesportoViewHolder extends RecyclerView.ViewHolder {
         ImageView ivImagem;
-        TextView tvNome, tvDescricao, tvLotacao;
+        TextView tvNome, tvDescricao;
 
         public DesportoViewHolder(@NonNull View itemView) {
             super(itemView);
             ivImagem = itemView.findViewById(R.id.ivImagemDesporto);
             tvNome = itemView.findViewById(R.id.tvNomeDesporto);
             tvDescricao = itemView.findViewById(R.id.tvDescricaoDesporto);
-            tvLotacao = itemView.findViewById(R.id.tvLotacao);
         }
     }
 }

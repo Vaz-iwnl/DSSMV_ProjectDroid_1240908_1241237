@@ -1,0 +1,9 @@
+@startuml
+title UC07 - Diagrama de Sequência de Sistema
+actor "Atleta" as A
+participant "Sistema ISEPGYM" as S
+
+A -> S : 1. Seleciona "Inscrever" na Aula desejada
+S --> A : 2. Verifica regras (lotação e dupla inscrição)
+S --> A : 3. Confirma inscrição efetuada com sucesso
+@enduml

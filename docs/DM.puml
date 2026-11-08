@@ -1,0 +1,59 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+hide empty methods
+
+title Modelo de Domínio - ISEPGYM
+
+class Utilizador {
+  - id : String
+  - nome : String
+  - email : String
+  - password : String
+  - active : boolean
+}
+
+class Instrutor {
+  - modalidadeEspecialidade : String
+}
+
+class Atleta {
+}
+
+' Herança: Instrutor e Atleta são tipos de Utilizador
+Utilizador <|-- Instrutor
+Utilizador <|-- Atleta
+
+class Desporto {
+  - id : String
+  - nome : String
+  - descricao : String
+  - lotacaoMaxima : int
+  - imagemUrl : String
+}
+
+class Aula {
+  - id : String
+  - modalidade : String
+  - professor : String
+  - data : String
+  - hora : String
+  - duracao : String
+  - lotacao : int
+}
+
+class Inscricao {
+  - _id : String
+  - id_aula : String
+  - username_aluno : String
+  - data_aula : String
+  - modalidade : String
+}
+
+' Relações conceptuais do negócio
+Instrutor "1" -- "0..*" Aula : leciona / gere >
+Atleta "1" -- "0..*" Inscricao : realiza >
+
+Desporto "1" -- "0..*" Aula : categoriza >
+Aula "1" -- "0..*" Inscricao : recebe >
+@enduml

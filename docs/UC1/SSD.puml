@@ -1,0 +1,10 @@
+@startuml
+title UC01 - Diagrama de Sequência de Sistema
+actor "Utilizador" as U
+participant "Sistema ISEPGYM" as S
+
+U -> S : 1. Seleciona a opção de criar conta
+S --> U : 2. Solicita Nome, Email e Password
+U -> S : 3. Insere os dados e submete
+S --> U : 4. Confirma criação da conta e redireciona para Login
+@enduml
