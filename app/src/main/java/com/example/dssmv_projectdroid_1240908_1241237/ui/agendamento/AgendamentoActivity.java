@@ -147,19 +147,26 @@ public class AgendamentoActivity extends AppCompatActivity {
         String idAula = aula.getId();
         GymApiService apiService = ApiClient.getApiService();
 
-        android.content.SharedPreferences prefs = getSharedPreferences("SessaoGinasio", MODE_PRIVATE);
-        String usernameLogado = prefs.getString("USERNAME_ALUNO", "Aluno Desconhecido");
+        android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+        String usernameLogado = prefs.getString("user_nome", "Aluno Desconhecido");
 
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
         String dataFormatada = sdf.format(dataSelecionada.getTime());
 
-        String queryVerificacao = "{\"id_aula\":\"" + idAula + "\", \"username_aluno\":\"" + usernameLogado + "\", \"data_aula\":\"" + dataFormatada + "\"}";
+        String queryVerificacao = "{\"id_aula\":\"" + idAula + "\", \"data_aula\":\"" + dataFormatada + "\"}";
 
         apiService.verificarInscricao(queryVerificacao).enqueue(new Callback<List<Inscricao>>() {
             @Override
             public void onResponse(Call<List<Inscricao>> call, Response<List<Inscricao>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Inscricao> listaInscritos = response.body();
+
+                    for (Inscricao insc : listaInscritos) {
+                        if (insc.getUsername_aluno().equals("AULA_CANCELADA")) {
+                            Toast.makeText(AgendamentoActivity.this, "Esta aula foi cancelada pelo instrutor!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    }
 
                     if (listaInscritos.size() >= aula.getLotacao()) {
                         Toast.makeText(AgendamentoActivity.this, "Esgotado! A lotação máxima é de " + aula.getLotacao() + " vagas.", Toast.LENGTH_LONG).show();

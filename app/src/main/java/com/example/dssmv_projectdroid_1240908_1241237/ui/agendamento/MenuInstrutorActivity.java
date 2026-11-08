@@ -37,6 +37,7 @@ public class MenuInstrutorActivity extends AppCompatActivity {
             Intent intent = new Intent(MenuInstrutorActivity.this, DetalhesAulaActivity.class);
             intent.putExtra("ID_AULA", aulaClicada.getId());
             intent.putExtra("MODALIDADE", aulaClicada.getModalidade());
+            intent.putExtra("DATA_AULA", aulaClicada.getData());
             startActivity(intent);
         });
 
@@ -64,6 +65,7 @@ public class MenuInstrutorActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Aula> aulasOriginais = response.body();
                     List<Aula> listaExpandida = new ArrayList<>();
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
 
                     // Para cada aula base do instrutor, criamos repetições para as próximas 4 semanas
                     for (Aula aulaBase : aulasOriginais) {
@@ -79,29 +81,22 @@ public class MenuInstrutorActivity extends AppCompatActivity {
                             }
 
                             for (int i = 0; i < 4; i++) {
-                                Aula aulaCiclo = new Aula();
-                                // Copia os dados principais
-                                // (Nota: Se a tua classe Aula tiver construtor vazio, criamos um objeto novo ou duplicamos)
-                                // Como vamos listar, podemos injetar a data simulada diretamente se criarmos um campo extra,
-                                // ou adaptar o texto do dia.
-                            }
-                        }
-                    }
+                                String dataCalculada = sdf.format(calendar.getTime());
 
-                    // Se preferires uma abordagem mais direta sem alterar o modelo de dados:
-                    // Vamos duplicar a lista base multiplicada por semanas para simular o ciclo:
-                    for (int semana = 0; semana < 4; semana++) {
-                        for (Aula a : aulasOriginais) {
-                            // Criamos cópias virtuais para o instrutor ver várias semanas à frente
-                            Aula copia = new Aula();
-                            copia.setId(a.getId());
-                            copia.setModalidade(a.getModalidade() + " (Semana " + (semana + 1) + ")");
-                            copia.setProfessor(a.getProfessor());
-                            copia.setDiaSemana(a.getDiaSemana());
-                            copia.setHora(a.getHora());
-                            copia.setDuracao(a.getDuracao());
-                            copia.setLotacao(a.getLotacao());
-                            listaExpandida.add(copia);
+                                Aula aulaCiclo = new Aula();
+                                aulaCiclo.setId(aulaBase.getId());
+                                aulaCiclo.setModalidade(aulaBase.getModalidade() + " (" + dataCalculada + ")");
+                                aulaCiclo.setProfessor(aulaBase.getProfessor());
+                                aulaCiclo.setDiaSemana(aulaBase.getDiaSemana());
+                                aulaCiclo.setData(dataCalculada); // Guarda a data exata!
+                                aulaCiclo.setHora(aulaBase.getHora());
+                                aulaCiclo.setDuracao(aulaBase.getDuracao());
+                                aulaCiclo.setLotacao(aulaBase.getLotacao());
+
+                                listaExpandida.add(aulaCiclo);
+
+                                calendar.add(Calendar.DAY_OF_MONTH, 7);
+                            }
                         }
                     }
 

@@ -49,8 +49,8 @@ public class MinhasAulasActivity extends AppCompatActivity {
     }
 
     private void carregarMinhasAulas() {
-        android.content.SharedPreferences prefs = getSharedPreferences("SessaoGinasio", MODE_PRIVATE);
-        String usernameLogado = prefs.getString("USERNAME_ALUNO", "");
+        android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+        String usernameLogado = prefs.getString("user_nome", "");
 
         String query = "{\"username_aluno\":\"" + usernameLogado + "\"}";
 

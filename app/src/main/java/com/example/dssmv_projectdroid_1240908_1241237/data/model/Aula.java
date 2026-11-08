@@ -16,6 +16,7 @@ public class Aula {
     private String hora;
     private String duracao;
     private int lotacao;
+    private String data;
 
     // Getters
     public String getId() { return id; }
@@ -25,6 +26,7 @@ public class Aula {
     public String getHora() { return hora; }
     public String getDuracao() { return duracao; }
     public int getLotacao() { return lotacao; }
+    public String getData() { return data; }
 
     // Setters (Adicionados para corrigir o erro)
     public void setId(String id) { this.id = id; }
@@ -34,4 +36,5 @@ public class Aula {
     public void setHora(String hora) { this.hora = hora; }
     public void setDuracao(String duracao) { this.duracao = duracao; }
     public void setLotacao(int lotacao) { this.lotacao = lotacao; }
+    public void setData(String data) { this.data = data; }
 }
