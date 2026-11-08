@@ -1,8 +1,10 @@
 package com.example.dssmv_projectdroid_1240908_1241237.ui.desportos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dssmv_projectdroid_1240908_1241237.R;
 import com.example.dssmv_projectdroid_1240908_1241237.data.model.Desporto;
 import com.example.dssmv_projectdroid_1240908_1241237.network.ApiClient;
+import com.example.dssmv_projectdroid_1240908_1241237.ui.main.MainActivity;
 
 import java.util.List;
 import retrofit2.Call;
@@ -35,6 +38,40 @@ public class DesportosActivity extends AppCompatActivity {
         rvDesportos.setLayoutManager(new LinearLayoutManager(this));
 
         carregarDadosDaApi();
+
+        ImageView icHome = findViewById(R.id.icHome);
+        if (icHome != null) {
+            icHome.setOnClickListener(v -> {
+                Intent intent = new Intent(DesportosActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
+        }
+        ImageView btnMinhasAulas = findViewById(R.id.icMinhasAulas);
+        if (btnMinhasAulas != null) {
+            btnMinhasAulas.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                boolean isProfessor = prefs.getBoolean("is_professor", false);
+
+                Intent intent;
+                if (isProfessor) {
+                    intent = new Intent(DesportosActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MenuInstrutorActivity.class);
+                } else {
+                    intent = new Intent(DesportosActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+        ImageView btnPerfil = findViewById(R.id.btnNavPerfil);
+        if (btnPerfil != null) {
+            btnPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(DesportosActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
     }
 
     private void carregarDadosDaApi() {

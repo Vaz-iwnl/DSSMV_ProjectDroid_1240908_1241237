@@ -67,15 +67,12 @@ public class MenuInstrutorActivity extends AppCompatActivity {
                     List<Aula> listaExpandida = new ArrayList<>();
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
 
-                    // Para cada aula base do instrutor, criamos repetições para as próximas 4 semanas
                     for (Aula aulaBase : aulasOriginais) {
                         int diaAlvo = obterDiaDaSemanaAlvo(aulaBase.getDiaSemana());
 
                         if (diaAlvo != -1) {
-                            // Gera as próximas 4 ocorrências desse dia da semana
                             Calendar calendar = Calendar.getInstance();
 
-                            // Avança até encontrar o próximo dia da semana correspondente
                             while (calendar.get(Calendar.DAY_OF_WEEK) != diaAlvo) {
                                 calendar.add(Calendar.DAY_OF_MONTH, 1);
                             }

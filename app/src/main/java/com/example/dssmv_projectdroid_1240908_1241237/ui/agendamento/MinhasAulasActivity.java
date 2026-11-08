@@ -45,6 +45,31 @@ public class MinhasAulasActivity extends AppCompatActivity {
             });
         }
 
+        ImageView btnMinhasAulas = findViewById(R.id.icMinhasAulas);
+        if (btnMinhasAulas != null) {
+            btnMinhasAulas.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                boolean isProfessor = prefs.getBoolean("is_professor", false);
+
+                Intent intent;
+                if (isProfessor) {
+                    intent = new Intent(MinhasAulasActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MenuInstrutorActivity.class);
+                } else {
+                    intent = new Intent(MinhasAulasActivity.this, MinhasAulasActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        ImageView btnPerfil = findViewById(R.id.btnNavPerfil);
+        if (btnPerfil != null) {
+            btnPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(MinhasAulasActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
         carregarMinhasAulas();
     }
 

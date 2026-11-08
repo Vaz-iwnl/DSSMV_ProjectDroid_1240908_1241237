@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageButton; // Import necessário caso uses ImageButton
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ import com.example.dssmv_projectdroid_1240908_1241237.data.model.Desporto;
 import com.example.dssmv_projectdroid_1240908_1241237.network.ApiClient;
 import com.example.dssmv_projectdroid_1240908_1241237.network.GymApiService;
 import com.example.dssmv_projectdroid_1240908_1241237.ui.desportos.DesportosActivity;
-import com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity; // Import da PerfilActivity
+import com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity;
 import com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa.SurpresaActivity;
 import com.google.android.material.card.MaterialCardView;
 
@@ -57,18 +56,13 @@ public class MainActivity extends AppCompatActivity {
         ImageView icMinhasAulas = findViewById(R.id.icMinhasAulas);
         if (icMinhasAulas != null) {
             icMinhasAulas.setOnClickListener(v -> {
-                // Ir buscar a sessão para saber se é professor
                 android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
-
-                // NOTA: Confirma se no teu LoginActivity guardaste a chave do professor como "is_professor"
                 boolean isProfessor = prefs.getBoolean("is_professor", false);
 
                 Intent intent;
                 if (isProfessor) {
-                    // Vai para a gestão de aulas do Instrutor
                     intent = new Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MenuInstrutorActivity.class);
                 } else {
-                    // Vai para as aulas do Aluno
                     intent = new Intent(MainActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
                 }
 

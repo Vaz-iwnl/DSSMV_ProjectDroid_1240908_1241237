@@ -46,10 +46,8 @@ public class MinhasAulasAdapter extends RecyclerView.Adapter<MinhasAulasAdapter.
         holder.tvProfessor.setText("Data: " + inscricao.getData_aula());
         holder.tvHora.setText("");
         holder.tvDuracao.setText("");
-
         holder.btnInscrever.setText("Cancelar");
         holder.btnInscrever.setBackgroundColor(Color.parseColor("#D32F2F"));
-
         holder.btnInscrever.setOnClickListener(v -> {
             if (listener != null) listener.onDeleteClick(inscricao);
         });

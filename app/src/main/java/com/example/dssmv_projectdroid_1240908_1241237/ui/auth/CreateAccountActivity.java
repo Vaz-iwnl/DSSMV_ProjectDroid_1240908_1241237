@@ -26,13 +26,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-        // 1. Mapear os elementos da interface
         etNome = findViewById(R.id.etNomeRegisto);
         etEmail = findViewById(R.id.etEmailRegisto);
         etPassword = findViewById(R.id.etPasswordRegisto);
-        btnCriarConta = findViewById(R.id.btnRegistar); // ou R.id.btnRegistar
-
-        // 2. Configurar o clique do botão
+        btnCriarConta = findViewById(R.id.btnRegistar);
         btnCriarConta.setOnClickListener(v -> registarAluno());
     }
 
@@ -41,13 +38,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // Validação de campos vazios
         if (nome.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // 3. Criar o objeto Utilizador
         Utilizador novoUtilizador = new Utilizador();
         novoUtilizador.setNome(nome);
         novoUtilizador.setEmail(email);
@@ -55,7 +50,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         novoUtilizador.setActive(true);
         novoUtilizador.setProfessor(false);
 
-        // 4. Enviar para a Rest API via Retrofit
         GymApiService apiService = ApiClient.getApiService();
         Call<Utilizador> call = apiService.criarUtilizador(novoUtilizador);
 
@@ -64,7 +58,6 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onResponse(Call<Utilizador> call, Response<Utilizador> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(CreateAccountActivity.this, "Conta de Aluno criada com sucesso!", Toast.LENGTH_SHORT).show();
-                    // Fecha esta Activity e regressa ao ecrã de Login
                     finish();
                 } else {
                     try {

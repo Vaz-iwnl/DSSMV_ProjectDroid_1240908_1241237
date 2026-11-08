@@ -55,6 +55,32 @@ public class AgendamentoActivity extends AppCompatActivity {
             });
         }
 
+        ImageView btnMinhasAulas = findViewById(R.id.icMinhasAulas);
+        if (btnMinhasAulas != null) {
+            btnMinhasAulas.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                boolean isProfessor = prefs.getBoolean("is_professor", false);
+
+                Intent intent;
+                if (isProfessor) {
+                    intent = new Intent(AgendamentoActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MenuInstrutorActivity.class);
+                } else {
+                    intent = new Intent(AgendamentoActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        ImageView btnPerfil = findViewById(R.id.btnNavPerfil);
+        if (btnPerfil != null) {
+            btnPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(AgendamentoActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -112,6 +138,14 @@ public class AgendamentoActivity extends AppCompatActivity {
     }
 
     private void fazerInscricao(Aula aula) {
+        android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+        boolean isProfessor = prefs.getBoolean("is_professor", false);
+
+        if (isProfessor) {
+            Toast.makeText(this, "Os instrutores não se podem inscrever em aulas!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         try {
             if (aula.getHora() != null && aula.getHora().contains(":")) {
                 String[] partesHora = aula.getHora().split(":");
@@ -147,7 +181,6 @@ public class AgendamentoActivity extends AppCompatActivity {
         String idAula = aula.getId();
         GymApiService apiService = ApiClient.getApiService();
 
-        android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
         String usernameLogado = prefs.getString("user_nome", "Aluno Desconhecido");
 
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault());
@@ -208,6 +241,5 @@ public class AgendamentoActivity extends AppCompatActivity {
                 Toast.makeText(AgendamentoActivity.this, "Falha de rede. Tenta de novo.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

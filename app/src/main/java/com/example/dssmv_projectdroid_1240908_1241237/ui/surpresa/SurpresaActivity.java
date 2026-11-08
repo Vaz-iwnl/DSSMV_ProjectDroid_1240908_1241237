@@ -2,15 +2,18 @@ package com.example.dssmv_projectdroid_1240908_1241237.ui.surpresa;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dssmv_projectdroid_1240908_1241237.R;
+import com.example.dssmv_projectdroid_1240908_1241237.ui.main.MainActivity;
 
 import java.util.Random;
 
@@ -46,6 +49,42 @@ public class SurpresaActivity extends AppCompatActivity {
 
         aceleracaoAtual = SensorManager.GRAVITY_EARTH;
         aceleracaoAnterior = SensorManager.GRAVITY_EARTH;
+
+        ImageView icHome = findViewById(R.id.icHome);
+        if (icHome != null) {
+            icHome.setOnClickListener(v -> {
+                Intent intent = new Intent(SurpresaActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            });
+        }
+        ImageView btnMinhasAulas = findViewById(R.id.icMinhasAulas);
+
+        if (btnMinhasAulas != null) {
+            btnMinhasAulas.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                boolean isProfessor = prefs.getBoolean("is_professor", false);
+
+                Intent intent;
+                if (isProfessor) {
+                    intent = new Intent(SurpresaActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MenuInstrutorActivity.class);
+                } else {
+                    intent = new Intent(SurpresaActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.agendamento.MinhasAulasActivity.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
+
+        ImageView btnPerfil = findViewById(R.id.btnNavPerfil);
+        if (btnPerfil != null) {
+            btnPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(SurpresaActivity.this, com.example.dssmv_projectdroid_1240908_1241237.ui.perfil.PerfilActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            });
+        }
     }
 
     private final SensorEventListener sensorListener = new SensorEventListener() {
@@ -58,9 +97,7 @@ public class SurpresaActivity extends AppCompatActivity {
             aceleracaoAnterior = aceleracaoAtual;
 
             aceleracaoAtual = (float) Math.sqrt(x * x + y * y + z * z);
-            float delta = aceleracaoAtual - aceleracaoAnterior;
-
-            //aumentar para mais de 12 para dar direito no tele
+            float delta = Math.abs(aceleracaoAtual - aceleracaoAnterior);
             if (delta > 12) {
                 long tempoAtual = System.currentTimeMillis();
 

@@ -39,7 +39,6 @@ public class DetalhesAulaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_aula);
 
-        // Receber os dados passados pelo ecrã anterior
         idAula = getIntent().getStringExtra("ID_AULA");
         modalidade = getIntent().getStringExtra("MODALIDADE");
         dataAula = getIntent().getStringExtra("DATA_AULA");
@@ -81,7 +80,6 @@ public class DetalhesAulaActivity extends AppCompatActivity {
                         nomesAlunos.add("Sem alunos inscritos ainda.");
                     }
 
-                    // Preencher a ListView de forma simples
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(
                             DetalhesAulaActivity.this,
                             android.R.layout.simple_list_item_1,

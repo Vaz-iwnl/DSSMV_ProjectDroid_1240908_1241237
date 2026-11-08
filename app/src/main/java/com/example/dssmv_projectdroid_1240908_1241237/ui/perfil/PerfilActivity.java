@@ -27,7 +27,6 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
-        // Inicializar os campos
         etNomePerfil = findViewById(R.id.etNomePerfil);
         etEmailPerfil = findViewById(R.id.etEmailPerfil);
         etNovaPassword = findViewById(R.id.etNovaPassword);
@@ -38,15 +37,11 @@ public class PerfilActivity extends AppCompatActivity {
 
         carregarDadosAtuais();
 
-        // Clique em Guardar
         btnGuardarPerfil.setOnClickListener(v -> guardarAlteracoes());
-
-        // Clique em Logout
         btnLogout.setOnClickListener(v -> efetuarLogout());
     }
 
     private void carregarDadosAtuais() {
-        // Lê os dados que foram guardados na SharedPreferences no momento do Login
         SharedPreferences preferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
         String nome = preferences.getString("user_nome", "");
         String email = preferences.getString("user_email", "");
@@ -66,7 +61,6 @@ public class PerfilActivity extends AppCompatActivity {
             return;
         }
 
-        // Validação da Password (apenas verifica se coincidem)
         if (!novaPass.isEmpty()) {
             if (!novaPass.equals(confPass)) {
                 Toast.makeText(this, "As passwords não coincidem!", Toast.LENGTH_SHORT).show();
@@ -74,7 +68,6 @@ public class PerfilActivity extends AppCompatActivity {
             }
         }
 
-        // 1. Obter o ID do utilizador logado
         SharedPreferences preferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
         String userId = preferences.getString("user_id", "");
 
@@ -83,7 +76,6 @@ public class PerfilActivity extends AppCompatActivity {
             return;
         }
 
-        // 2. Criar o objeto Utilizador com os novos dados
         Utilizador utilizadorAtualizado = new Utilizador();
         utilizadorAtualizado.setNome(novoNome);
         utilizadorAtualizado.setEmail(novoEmail);
@@ -92,12 +84,10 @@ public class PerfilActivity extends AppCompatActivity {
             utilizadorAtualizado.setPassword(novaPass);
         }
 
-        // 3. Enviar para a API
         ApiClient.getApiService().atualizarUtilizador(userId, utilizadorAtualizado).enqueue(new Callback<Utilizador>() {
             @Override
             public void onResponse(Call<Utilizador> call, Response<Utilizador> response) {
                 if (response.isSuccessful()) {
-                    // Atualizar os dados locais para manter a sessão correta
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("user_nome", novoNome);
                     editor.putString("user_email", novoEmail);

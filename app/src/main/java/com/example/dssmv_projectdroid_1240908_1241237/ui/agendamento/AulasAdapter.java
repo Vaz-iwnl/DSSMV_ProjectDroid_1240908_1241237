@@ -49,19 +49,15 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
 
         holder.tvModalidade.setText(aulaAtual.getModalidade());
         holder.tvProfessor.setText(aulaAtual.getProfessor());
-
-        // Vai buscar o dia da semana (ex: "Sexta") e a hora (ex: "19:30")
         String diaSemana = aulaAtual.getDiaSemana();
         String horaFormatada = aulaAtual.getHora();
         String horaMinuto = "";
 
-        // Trata da formatação da hora (remove a data de 1970 se vier no formato 'T')
         if (horaFormatada != null && horaFormatada.contains("T")) {
             try {
                 java.text.SimpleDateFormat formatoOriginal = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.getDefault());
                 formatoOriginal.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
                 java.util.Date horaDaAula = formatoOriginal.parse(horaFormatada);
-
                 java.text.SimpleDateFormat formatoHora = new java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault());
                 horaMinuto = formatoHora.format(horaDaAula);
             } catch (Exception e) {
@@ -71,13 +67,11 @@ public class AulasAdapter extends RecyclerView.Adapter<AulasAdapter.AulaViewHold
             horaMinuto = horaFormatada;
         }
 
-        // Se o dia não vier vazio, junta com a hora. Ex: "Sexta • 19:30"
         String textoDiaHora = (diaSemana != null && !diaSemana.isEmpty() ? diaSemana + " • " : "") + horaMinuto;
         holder.tvHora.setText(textoDiaHora);
 
         holder.tvDuracao.setText(" • " + aulaAtual.getDuracao());
 
-        // Modo Instrutor = Botão DETALHES Cinzento
         if (isModoInstrutor) {
             holder.btnInscrever.setText("DETALHES");
             holder.btnInscrever.setBackgroundColor(android.graphics.Color.parseColor("#5E636E"));

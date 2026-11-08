@@ -18,11 +18,8 @@ public class Desporto {
     @SerializedName("imagemUrl")
     private String imagemUrl;
 
-    //Construtor vazio para ler os dados da api
     public Desporto() {
     }
-
-    //Construtor Completo serve para criar na app e manda para api POST
     public Desporto(String id, String nome, String descricao, int lotacaoMaxima, String imagemUrl) {
         this.id = id;
         this.nome = nome;
@@ -30,8 +27,6 @@ public class Desporto {
         this.lotacaoMaxima = lotacaoMaxima;
         this.imagemUrl = imagemUrl;
     }
-
-    // get e sets
 
     public String getId() {
         return id;

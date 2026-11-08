@@ -18,7 +18,7 @@ public class Aula {
     private int lotacao;
     private String data;
 
-    // Getters
+
     public String getId() { return id; }
     public String getModalidade() { return modalidade; }
     public String getProfessor() { return professor; }
@@ -28,7 +28,7 @@ public class Aula {
     public int getLotacao() { return lotacao; }
     public String getData() { return data; }
 
-    // Setters (Adicionados para corrigir o erro)
+
     public void setId(String id) { this.id = id; }
     public void setModalidade(String modalidade) { this.modalidade = modalidade; }
     public void setProfessor(String professor) { this.professor = professor; }

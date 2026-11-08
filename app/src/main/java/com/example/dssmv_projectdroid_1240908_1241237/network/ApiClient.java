@@ -18,9 +18,9 @@ public class ApiClient {
 
     public static GymApiService getApiService() {
         if (retrofit == null) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();//cria um interceptor para a rede
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY); //regista o pedidos da api
-            Interceptor apiKeyInterceptor = new Interceptor() { //este interceptor muda ativamente os meus pedidos http
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            Interceptor apiKeyInterceptor = new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request originalRequest = chain.request();
@@ -32,13 +32,11 @@ public class ApiClient {
                     return chain.proceed(requestWithHeaders);
                 }
             };
-            // Cria o cliente HTTP com a autenticação
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(apiKeyInterceptor)
                     .addInterceptor(logging)
                     .build();
 
-            // Criar a instância do Retrofit
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
